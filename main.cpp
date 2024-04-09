@@ -1,5 +1,5 @@
 #include <iostream>
-
+//dasfsud
 int CountSimilarBytes(long long int byte);
 //one more thing
 void SwapBytes(unsigned short* b);
