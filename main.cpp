@@ -1,61 +1,88 @@
 #include <iostream>
-//dasfsud
-int CountSimilarBytes(long long int byte);
-//one more thing
-void SwapBytes(unsigned short* b);
+#define HOW
 
-unsigned char GetMaxByte(const unsigned int* ar, size_t size);
+#define SET_BIT(number, bit)((number) * (bit))
 
-//ok what the hell is wrong with my git shit
+int CountEl(const int* ar, int size, int num_bit);
+bool shit (int a, int num_bit1);
+
+void ShiftNumber(int* element, int countShiftBit, bool left = true);
+
+void SwapTetrad(unsigned char *number);
+//Работает почти все
 int main()
 {
+
+
 
     return 0;
 }
 
-
-int CountSimilarBytes(long long int byte)
+int CountEl(const int* ar, int size, int num_bit)
 {
-    int maxCount = 0;
-    int currentCount = 0;
-    int prevByte = -1;
-
-    for (int i = 0; i < sizeof(long long int); ++i) {
-        int currentByte = (byte >> (8 * i)) & 0xFF;
-        if (currentByte != 0xFF && currentByte != 0x00) {
-            if (currentByte == prevByte) {
-                currentCount++;
-            } else {
-                currentCount = 1;
-            }
-            if (currentCount > maxCount) {
-                maxCount = currentCount;
-            }
-        }
-        prevByte = currentByte;
-    }
-
-    return maxCount;
-}
-
-void SwapBytes(unsigned short* b)
-{
-    unsigned short bf = (*b << 4*6 >> 4*6);
-    *b = *b + ~bf + 1;
-    *b = (*b >> 4*2);
-    *b = *b + (bf << 4*2);
-}
-
-unsigned char GetMaxByte(const unsigned int* ar, size_t size)
-{
-    unsigned char maxByte = 0;
-    for (size_t i = 0; i < size; ++i) {
-        const unsigned char* bytePtr = reinterpret_cast<const unsigned char*>(&ar[i]);
-        for (size_t j = 0; j < sizeof(unsigned int); ++j) {
-            if (bytePtr[j] > maxByte) {
-                maxByte = bytePtr[j];
-            }
+    int amount = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (shit(ar[i],num_bit))
+        {
+            amount++;
         }
     }
-    return maxByte;
+
+    return amount;
 }
+
+bool shit (int a, int num_bit1)
+{
+    a = a >> num_bit1;
+    a &= 1;
+
+    return a;
+}
+
+void ShiftNumber(int* element, int countShiftBit, bool left)
+{
+    if (left)
+    {
+        int a = (*element);
+        a = a >> (32 - countShiftBit);
+        //a = a & 0xF;
+
+        (*element) = (*element) << countShiftBit;
+
+        (*element) = (*element) | a;
+    }
+    else
+    {
+        int a = (*element);
+        a = a << (32 - countShiftBit);
+        (*element) = (*element) >> countShiftBit;
+
+        (*element) = (*element) | a;
+    }
+}
+
+void SwapTetrad(unsigned char* number)
+{
+    unsigned char a = (*number) & 0b1111;
+    (*number) = (*number) >> 4;
+    a = a << 4;
+    (*number) = (*number) | a;
+}
+
+
+//void ShiftNumber1(int* element, int countShiftBit, bool left)
+//{
+//    if (left)
+//    {
+//это короче Нагайцев предложил,но тут тоже не работает полностью, поставьте ему за это -
+//    }
+//    else
+//    {
+//        int temp = (*element) & 0b11;
+//        (*element) = (*element) >> countShiftBit;
+
+//        (*element) &= ~(0b11 >> 32 - countShiftBit);
+//        (*element) |= temp << 32 - countShiftBit;
+//    }
+//}
