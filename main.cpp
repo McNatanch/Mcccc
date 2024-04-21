@@ -1,88 +1,49 @@
+//Напишем функцию, именно функцию, которая сбрасывает/устанавливает n-ый бит в числе
 #include <iostream>
-#define HOW
 
-#define SET_BIT(number, bit)((number) * (bit))
+#define SET_BIT(number, bit)((number) |= (1 << n-1))
 
-int CountEl(const int* ar, int size, int num_bit);
-bool shit (int a, int num_bit1);
+#define RESET_BIT(number, bit)((number) &= (~(1<n-1)))
 
-void ShiftNumber(int* element, int countShiftBit, bool left = true);
 
-void SwapTetrad(unsigned char *number);
-//Работает почти все
+//сброс бита
+//void Set_bit (int* a, int n)
+//{
+//    int copy = (*a);
+//    copy = copy << 32 - n;
+//    copy = copy >> 32 - n;
+
+//    (*a) = (*a) >> n - 1;
+//    (*a) |= 1;
+//    (*a) = (*a) << n - 1;
+
+//    (*a) |= copy;
+//}
+
+void Set_bit (int* a, int n)
+{
+    (*a) |= (1 << n-1);
+}
+
+
+
 int main()
 {
 
+    int num = 27;
+    printf("%X\n", num);
+    Set_bit(&num,2);
+    printf("%X\n", num);
 
-
+    printf("%d\n", num);
     return 0;
 }
 
-int CountEl(const int* ar, int size, int num_bit)
+void Drop_bit (int* a, int n)
 {
-    int amount = 0;
-    for (int i = 0; i < size; i++)
-    {
-        if (shit(ar[i],num_bit))
-        {
-            amount++;
-        }
-    }
+    int copy = (*a);
+    copy = copy << 32 - n;
+    copy = copy >> 32 - n;
 
-    return amount;
+    (*a) = (*a) >> n - 1;
 }
-
-bool shit (int a, int num_bit1)
-{
-    a = a >> num_bit1;
-    a &= 1;
-
-    return a;
-}
-
-void ShiftNumber(int* element, int countShiftBit, bool left)
-{
-    if (left)
-    {
-        int a = (*element);
-        a = a >> (32 - countShiftBit);
-        //a = a & 0xF;
-
-        (*element) = (*element) << countShiftBit;
-
-        (*element) = (*element) | a;
-    }
-    else
-    {
-        int a = (*element);
-        a = a << (32 - countShiftBit);
-        (*element) = (*element) >> countShiftBit;
-
-        (*element) = (*element) | a;
-    }
-}
-
-void SwapTetrad(unsigned char* number)
-{
-    unsigned char a = (*number) & 0b1111;
-    (*number) = (*number) >> 4;
-    a = a << 4;
-    (*number) = (*number) | a;
-}
-
-
-//void ShiftNumber1(int* element, int countShiftBit, bool left)
-//{
-//    if (left)
-//    {
-//это короче Нагайцев предложил,но тут тоже не работает полностью, поставьте ему за это -
-//    }
-//    else
-//    {
-//        int temp = (*element) & 0b11;
-//        (*element) = (*element) >> countShiftBit;
-
-//        (*element) &= ~(0b11 >> 32 - countShiftBit);
-//        (*element) |= temp << 32 - countShiftBit;
-//    }
-//}
