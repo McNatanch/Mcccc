@@ -2,28 +2,15 @@
 #include <iostream>
 #include "test.h"
 #include <time.h>
+#include "hw2.h"
+
 using namespace std;
-#define SET_BIT(number, bit)((number) |= (1 << n-1))
-
-#define RESET_BIT(number, bit)((number) &= (~(1<n-1)))
 
 
+int main(int argc, char** argv){
+    FileData params;
 
-int main()
-{
+    params.filter(argc, argv);
 
- //   std::cout<<__func__<<std::endl;
-    bool (*comp)(int, int);
-    comp = SortDown;
-    test_Sort(QuickSort,comp);
-
- 
-
- 
- 
-
-
- 
-
-     return 0;
+    return 0;
 }
