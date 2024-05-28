@@ -46,7 +46,16 @@ void params::parameters_IO(int argc, char** argv)
             {
                 temp_string[j-3] = argv[i][j];
             }
-            strcmp(temp_string, "moving_average") == 0 ? IfSync = true : IfSync = false;
+
+            if (strcmp(temp_string, "moving_average"))
+            {
+                IfSync = true;
+            }
+            if (!strcmp(temp_string, "moving_average"))
+            {
+                IfSync = true;
+            }
+                   
             break;
         }
         case 'c':
@@ -93,8 +102,16 @@ void params::print_params()
 {
     std::cout<<"Input data file: "<<inputFile<<std::endl;
     std::cout<<"Output data file: "<<outputFile<<std::endl;
-    std::cout<<"Filter with: "<<
-               (IfSync ? "synchronising filter" : "moving average filter")<<std::endl;
+    std::cout<<"Filter with: ";
+    if (IfSync)
+    {
+        std::cout<<"synchronising filtering";
+    }    
+    if (!IfSync)
+    {
+        std::cout<<"moving average filtering";
+    }
+    std::cout<<""<<std::endl;
     std::cout<<"Filter width: "<<w<<std::endl;
     std::cout<<"Filtered coloumns: ";
     for(int i = 1; i < c[0]; i++)
@@ -140,7 +157,7 @@ void FileData::filter(int argc, char** argv)
 }
 
 void FileData::getData()
-{
+{   //inputFile
     FILE* f = fopen(inputFile, "r");
     if(f == nullptr)
     {
@@ -156,7 +173,7 @@ void FileData::getData()
 }
 
 void FileData::sendData()
-{
+{   //outputFile
     FILE* f = fopen(outputFile, "w");
     if(f == nullptr)
     {

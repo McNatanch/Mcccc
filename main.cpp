@@ -10,12 +10,13 @@
 using namespace std;
 
 
-int main()
+int main(int argc, char** argv)
 {
  
+    FileData params;
+    params.filter(argc, argv); 
  
  
- 
-    buildTree(5,5,0); 
+     
     return 0;
 }
