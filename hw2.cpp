@@ -215,7 +215,22 @@ void FileData::moving_average()
         }
     }
 }
+//void moveaver (int* numbers[] ar, int* n, int w)
 
+//void moveaver (const int (&)[] ar, int *n, int w)
+
+void moveaver(const int* ar1, int n, int w, int** ar, int& nSize) {
+        nSize = n - w;
+        *ar = new int [nSize];   
+    
+}
+
+void test() {
+    int* ar = new int[100];
+    int* res;
+    int size;
+    moveaver(ar, 100, 4, &res, size);
+}
 void FileData::synchronized()
 {
     for(int k = 1; k < c[0]; k++)
